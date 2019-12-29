@@ -45,7 +45,7 @@ public class ThreeSum {
         if (set.size() == 0) {
             return result;
         }
-        set.forEach(item -> result.add(item));
+        result.addAll(set);
         System.out.println(result);
         return result;
     }
@@ -76,8 +76,48 @@ public class ThreeSum {
                 }
             }
         }
+        System.out.println(res);
         return res;
 
+    }
+
+    public static List<List<Integer>> threeSum2(int[] nums) {
+        // 排序
+        Arrays.sort(nums);
+        List<List<Integer>> result = new ArrayList<>();
+        HashSet<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < nums.length - 2; i++) {
+            int cur = nums[i];
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] + cur == 0) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(cur);
+                    list.add(nums[left]);
+                    list.add(nums[right]);
+                    set.add(list);
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                }else if (nums[left] + nums[right] < -cur) {
+                    left++;
+                }else {
+                    right--;
+                }
+            }
+        }
+        if (set.size() == 0) {
+            return result;
+        }
+        result.addAll(set);
+        System.out.println(result);
+        return result;
     }
 
 
@@ -86,12 +126,29 @@ public class ThreeSum {
         int[] nums1 = new int[]{1, 1, -2};
         int[] nums2 = new int[]{3, -2, 1, 0};
         int[] nums3 = new int[]{-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6};
-        threeSum(nums);
-        System.out.println("==========");
-        threeSum(nums1);
-        System.out.println("==========");
-        threeSum(nums2);
-        threeSum(nums3);
+//        threeSum(nums);
+//        System.out.println("==========");
+//        threeSum(nums1);
+//        System.out.println("==========");
+//        threeSum(nums2);
+//        threeSum(nums3);
+        threeSum2(nums);
+        System.out.println("=======");
+        threeSum2(nums1);
+        System.out.println("=======");
+        threeSum2(nums2);
+        System.out.println("=======");
+        threeSum2(nums3);
+        System.out.println("=======");
+        System.out.println("the following are correct answers");
+        threeSum1(nums);
+        System.out.println("=======");
+        threeSum1(nums1);
+        System.out.println("=======");
+        threeSum1(nums2);
+        System.out.println("=======");
+        threeSum1(nums3);
+        System.out.println("=======");
     }
 
 
