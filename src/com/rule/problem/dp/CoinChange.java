@@ -2,6 +2,9 @@ package com.rule.problem.dp;
 
 import java.util.Arrays;
 
+/**
+ * 322
+ */
 public class CoinChange {
     public static int coinChange(int[] coins, int amount) {
         int max = amount + 1;
