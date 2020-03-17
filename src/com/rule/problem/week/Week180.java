@@ -83,10 +83,18 @@ public class Week180 {
         public TreeNode balanceBST(TreeNode root) {
             List<Integer> values = new ArrayList<>();
             dfs(root, values);
-            int len = values.size();
             Collections.sort(values);
+            return buildBST(0, values.size() - 1, values);
+        }
 
-
+        private TreeNode buildBST(int left, int right, List<Integer> values) {
+            if (left > right) {
+                return null;
+            }
+            int mid = (left + right) / 2;
+            TreeNode root = new TreeNode(values.get(mid));
+            root.left = buildBST(left, mid - 1, values);
+            root.right = buildBST(mid + 1, right, values);
             return root;
         }
 
