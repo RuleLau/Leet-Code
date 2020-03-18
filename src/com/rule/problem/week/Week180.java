@@ -1,8 +1,13 @@
 package com.rule.problem.week;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Week180 {
 
@@ -106,6 +111,35 @@ public class Week180 {
             dfs(root.left, values);
             dfs(root.right, values);
         }
+    }
+
+    public static int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
+        Map<Integer, Integer> speedMap = new HashMap<>();
+        Map<Integer, Integer> efficMap = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            speedMap.put(speed[i], efficiency[i]);
+            efficMap.put(efficiency[i], speed[i]);
+        }
+        Set<Integer> sp = new HashSet<>();
+        Arrays.sort(speed);
+        Arrays.sort(efficiency);
+        for (int i = n - 1; i >= n - k + 1; i--) {
+            sp.add(speed[i]);
+            sp.add(efficMap.get(efficiency[i]));
+        }
+        int max = Integer.MIN_VALUE;
+        Integer[] spArr = sp.toArray(new Integer[sp.size()]);
+        for (Integer s : spArr) {
+
+        }
+
+
+        return 0;
+    }
+
+    private int findMin(int[] a) {
+
+        return 0;
     }
 
     public static void main(String[] args) {
