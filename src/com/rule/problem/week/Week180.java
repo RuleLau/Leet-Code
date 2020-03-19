@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 public class Week180 {
@@ -113,37 +114,36 @@ public class Week180 {
         }
     }
 
+    /**
+     * 1383. Maximum Performance of a Team
+     */
     public static int maxPerformance(int n, int[] speed, int[] efficiency, int k) {
-        Map<Integer, Integer> speedMap = new HashMap<>();
-        Map<Integer, Integer> efficMap = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            speedMap.put(speed[i], efficiency[i]);
-            efficMap.put(efficiency[i], speed[i]);
+        int MOD = (int) (1e9 + 7);
+        // 根据efficiency降序排列
+        int[][] engineers = new int[n][2];
+        for (int i = 0; i < n; ++i) {
+            engineers[i] = new int[]{efficiency[i], speed[i]};
         }
-        Set<Integer> sp = new HashSet<>();
-        Arrays.sort(speed);
-        Arrays.sort(efficiency);
-        for (int i = n - 1; i >= n - k + 1; i--) {
-            sp.add(speed[i]);
-            sp.add(efficMap.get(efficiency[i]));
+        Arrays.sort(engineers, (a, b) -> b[0] - a[0]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k);
+        long res = Long.MIN_VALUE;
+        long totalSpeed = 0;
+        for (int[] engineer : engineers) {
+            if (pq.size() == k) {
+                totalSpeed -= pq.poll();
+            }
+            int sp = engineer[1];
+            int eff = engineer[0];
+            pq.add(sp);
+            totalSpeed += sp;
+            res = Math.max(res, totalSpeed * eff);
         }
-        int max = Integer.MIN_VALUE;
-        Integer[] spArr = sp.toArray(new Integer[sp.size()]);
-        for (Integer s : spArr) {
-
-        }
-
-
-        return 0;
+        return (int) (res % MOD);
     }
 
-    private int findMin(int[] a) {
-
-        return 0;
-    }
 
     public static void main(String[] args) {
         //System.out.println(luckyNumbers(new int[][]{{1,10,4,2}, {9,3,8,7}, {15,16,17,12}}));
-
+        maxPerformance(6, new int[]{2,10,3,1,5,8}, new int[]{5,4,3,9,7,2}, 2);
     }
 }
