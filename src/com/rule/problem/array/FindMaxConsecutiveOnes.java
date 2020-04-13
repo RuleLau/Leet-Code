@@ -1,8 +1,6 @@
 package com.rule.problem.array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FindMaxConsecutiveOnes {
 
@@ -24,22 +22,20 @@ public class FindMaxConsecutiveOnes {
     }
 
     public static int[] findErrorNums(int[] nums) {
-        Arrays.sort(nums);
-        if (nums[0] == nums[1]) {
-            return new int[]{1, 2};
+        Map< Integer, Integer > map = new HashMap();
+        int dup = -1, missing = 1;
+        for (int n: nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
         }
-        int[] a = new int[2];
-        int flag = 0;
-        for (int i = 0; i < nums.length - 1; i++) {
-            if (nums[i + 1] == nums[i]) {
-                a[0] = nums[i];
-            }
-            if (i + 1 != nums[i] && flag == 0) {
-                a[1] = i + 1;
-                flag = 1;
-            }
+        for (int i = 1; i <= nums.length; i++) {
+            if (map.containsKey(i)) {
+                if (map.get(i) == 2)
+                    dup = i;
+            } else
+                missing = i;
         }
-        return a;
+        return new int[]{dup, missing};
+
     }
 
 }
