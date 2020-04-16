@@ -10,33 +10,18 @@ public class MaxChunksToSorted {
      * 769. 最多能完成排序的块
      */
     public static int maxChunksToSorted(int[] arr) {
-        int len = arr.length;
-        List<Integer> left = new ArrayList<>();
-        List<Integer> right = new ArrayList<>();
-        int max = 1;
-        int k = 0;
-        for (int i = 1; i < len; i++) {
-            while (k < i) {
-                left.add(arr[k++]);
+        int ans = 0, max = 0;
+        for (int i = 0; i < arr.length; ++i) {
+            max = Math.max(max, arr[i]);
+            if (max == i) {
+                ans++;
             }
-            while (k < len) {
-                right.add(arr[k++]);
-            }
-
-            left.sort(Comparator.comparingInt(o -> o));
-            right.sort(Comparator.comparingInt(o -> o));
-
-            if (left.get(i - 1) <= right.get(0)) {
-                max = Math.max(max, i);
-            }
-            left.clear();
-            right.clear();
-            k = 0;
         }
-        return max;
+        return ans;
     }
 
     public static void main(String[] args) {
-        System.out.println(maxChunksToSorted(new int[]{1,0,2,3,4}));
+        System.out.println(maxChunksToSorted(new int[]{1, 0, 2, 3, 4}));
+        System.out.println(maxChunksToSorted(new int[]{0, 1}));
     }
 }
