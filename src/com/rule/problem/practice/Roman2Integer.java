@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 /**
  * @description: 29. Divide Two Integers

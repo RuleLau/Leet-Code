@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 /**
  * @description: 33. Search in Rotated Sorted Array

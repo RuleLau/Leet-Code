@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 /**
  * @description: 正则表达式匹配 10. Regular Expression Matching

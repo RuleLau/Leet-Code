@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 import com.sun.org.apache.regexp.internal.RE;
 

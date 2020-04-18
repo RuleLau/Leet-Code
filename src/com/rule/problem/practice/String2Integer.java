@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 /**
  * @description: 8 String to Integer (atoi)

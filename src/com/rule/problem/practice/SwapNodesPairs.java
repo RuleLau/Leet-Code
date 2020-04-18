@@ -1,4 +1,4 @@
-package com.rule.problem;
+package com.rule.problem.practice;
 
 /**
  * @description: 24. Swap Nodes in Pairs
