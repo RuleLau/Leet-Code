@@ -2,7 +2,7 @@ package com.rule.problem.week;
 
 import java.util.*;
 
-public class WeekDouble185 {
+public class Week185 {
 
     /**
      * 5388. 重新格式化字符串
@@ -44,7 +44,7 @@ public class WeekDouble185 {
             if (len1 < len2) {
                 res.append(str2.charAt(j));
                 res.append(str1.charAt(i));
-            }else {
+            } else {
                 res.append(str1.charAt(i));
                 res.append(str2.charAt(j));
             }
@@ -97,7 +97,7 @@ public class WeekDouble185 {
         // 存储菜品
         title.addAll(foods);
         res.add(title);
-        tables.forEach((k,v) -> {
+        tables.forEach((k, v) -> {
             List<String> list = new ArrayList<>();
             list.add(k);
             for (int i = 1; i < title.size(); i++) {
@@ -111,13 +111,53 @@ public class WeekDouble185 {
         return res;
     }
 
+    public static int minNumberOfFrogs(String croakOfFrogs) {
+        int c = 0;
+        int r = 0;
+        int o = 0;
+        int a = 0;
+        int k = 0;
+        char[] chars = croakOfFrogs.toCharArray();
+        int res = 0;
+        for (char aChar : chars) {
+            if (aChar == 'c') {
+                if (k > 0) {
+                    k--;
+                } else {
+                    res++;
+                }
+                c++;
+            } else if (aChar == 'r') {
+                c--;
+                r++;
+            } else if (aChar == 'o') {
+                r--;
+                o++;
+            } else if (aChar == 'a') {
+                o--;
+                a++;
+            } else if (aChar == 'k') {
+                a--;
+                k++;
+            }
+            if (c < 0 || r < 0 || o < 0 || a < 0) {
+                break;
+            }
+        }
+        if (c != 0 || r != 0 || o != 0 || a != 0) {
+            return -1;
+        }
+        return res;
+    }
+
 
     public static void main(String[] args) {
-        WeekDouble185 a = new WeekDouble185();
+        Week185 a = new Week185();
 //        System.out.println(a.reformat("a0b1c2"));
 //        System.out.println(a.reformat("leetcode"));
 //        System.out.println(a.reformat("1229857369"));
 //        System.out.println(a.reformat("covid2019"));
 //        System.out.println(a.reformat("ab123"));
+        System.out.println(minNumberOfFrogs("cccrorakrcoakorakoak"));
     }
 }
