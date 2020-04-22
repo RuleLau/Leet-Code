@@ -1,4 +1,4 @@
-package com.rule.problem.array;
+package com.rule.problem.interview.array;
 
 /**
  * 633. 平方数之和

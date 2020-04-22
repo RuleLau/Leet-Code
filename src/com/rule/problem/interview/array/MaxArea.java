@@ -1,4 +1,4 @@
-package com.rule.problem.array;
+package com.rule.problem.interview.array;
 
 /**
  * 011. 盛最多水的容器

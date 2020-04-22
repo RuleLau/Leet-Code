@@ -1,4 +1,4 @@
-package com.rule.problem.array;
+package com.rule.problem.interview.array;
 
 import java.util.HashMap;
 import java.util.Map;
