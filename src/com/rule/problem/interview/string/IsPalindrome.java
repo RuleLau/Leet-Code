@@ -55,7 +55,31 @@ public class IsPalindrome {
         return true;
     }
 
+    /**
+     * 009. 判断一个整数是否是回文数
+     */
+    public static boolean isPalindrome3(int x) {
+        String s = String.valueOf(x);
+        if (s.charAt(0) == '-') {
+            return false;
+        }
+        if (s.length() == 1) {
+            return true;
+        }
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
-        System.out.println(isPalindrome("zzb"));
+        System.out.println(isPalindrome3(121));
     }
 }
