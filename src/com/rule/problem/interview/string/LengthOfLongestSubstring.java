@@ -22,7 +22,50 @@ public class LengthOfLongestSubstring {
         return max;
     }
 
-    public static void main(String[] args) {
+    static boolean flag = true;
+
+    static Object lock = new Object();
+
+    public static void main(String[] args) throws Exception {
         System.out.println(lengthOfLongestSubstring("abcabcbb"));
+        Thread wait = new Thread(new Wait(), "wait");
+        Thread notify = new Thread(new Notify(), "notify");
+        wait.start();
+        Thread.sleep(1000);
+        notify.start();
+    }
+
+
+    static class Wait implements Runnable {
+        @Override
+        public void run() {
+            synchronized (lock) {
+                while (flag) {
+                    try {
+                        System.out.println(Thread.currentThread() + "flag is true");
+                        lock.wait();
+                    } catch (Exception e) {
+
+                    }
+                }
+                System.out.println("get lock finished");
+            }
+        }
+    }
+
+    static class Notify implements Runnable {
+        @Override
+        public void run() {
+            synchronized (lock) {
+                flag = false;
+                System.out.println(Thread.currentThread() + "flag is false");
+                lock.notify();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
