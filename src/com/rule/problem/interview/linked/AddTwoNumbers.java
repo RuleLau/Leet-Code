@@ -12,26 +12,38 @@ public class AddTwoNumbers {
             val = x;
         }
     }
-
+    //1 99
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
         StringBuilder str1 = new StringBuilder();
-        StringBuilder str2 = new StringBuilder();
+        int bit = 0;
+        while (l1 != null && l2 != null) {
+            int s = l1.val + l2.val + bit;
+            str1.append(s % 10);
+            bit = s >= 10 ? 1 : 0;
+            l1 = l1.next;
+            l2 = l2.next;
+        }
         while (l1 != null) {
-            str1.append(l1.val);
+            int s = l1.val + bit;
+            str1.append(s % 10);
+            bit = s >= 10 ? 1 : 0;
             l1 = l1.next;
         }
         while (l2 != null) {
-            str2.append(l2.val);
+            int s = l2.val + bit;
+            str1.append(s % 10);
+            bit = s >= 10 ? 1 : 0;
             l2 = l2.next;
         }
-        long sum = Long.parseLong(str1.reverse().toString()) + Long.parseLong(str2.reverse().toString());
-        if (sum == 0) {
+        if (bit != 0) {
+            str1.append(bit);
+        }
+
+        StringBuilder reverse = str1.reverse();
+        if (reverse.length() == 1 && "0".equals(reverse.toString())) {
             return new ListNode(0);
         }
-        str1.setLength(0);
-        str1.append(sum);
-        int len = str1.length();
+        int len = reverse.length();
         ListNode head = new ListNode(Integer.parseInt(String.valueOf(str1.charAt(--len))));
         ListNode res = head;
         while (len > 0) {
