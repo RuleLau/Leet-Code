@@ -1,10 +1,13 @@
 package com.rule.problem.interview.linked;
 
 
+/**
+ * 002. 两数相加
+ */
 public class AddTwoNumbers {
 
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
