@@ -1,9 +1,5 @@
 package com.rule.problem.interview.linked;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
 public class GetIntersectionNode {
 
 
@@ -13,6 +9,8 @@ public class GetIntersectionNode {
         }
         int len1 = 0;
         int len2 = 0;
+        ListNode l1 = headA;
+        ListNode l2 = headB;
         while (headA != null) {
             len1++;
             headA = headA.next;
@@ -22,12 +20,24 @@ public class GetIntersectionNode {
             headB = headB.next;
         }
         int len = Math.abs(len1 - len2);
-        if (len == 0) {
-
-        }else {
-
+        if (len1 > len2) {
+            while (len != 0) {
+                l1 = l1.next;
+                len--;
+            }
+        } else {
+            while (len != 0) {
+                l2 = l2.next;
+                len--;
+            }
         }
-        return null;
+        while (l1 != null && l2 != null && l1!= l2) {
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        return l1;
+
+
     }
 
     public static void main(String[] args) {
