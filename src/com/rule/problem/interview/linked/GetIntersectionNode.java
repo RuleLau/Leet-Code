@@ -8,45 +8,26 @@ public class GetIntersectionNode {
 
 
     public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        // 反转链表 headA
-        ListNode node = headA;
-        ListNode first = headA;
-        while (node != null && node.next != null) {
-            ListNode next = node.next;
-            node.next = next.next;
-            next.next = headA;
-            headA = next;
-            node = first;
+        if (headA == null || headB == null) {
+            return null;
         }
-        // 反转链表 headB
-        node = headB;
-        first = headB;
-        while (node != null && node.next != null) {
-            ListNode next = node.next;
-            node.next = next.next;
-            next.next = headB;
-            headB = next;
-            node = first;
+        int len1 = 0;
+        int len2 = 0;
+        while (headA != null) {
+            len1++;
+            headA = headA.next;
         }
-        // 找到公共部分
-        node = headA;
-        first = headA;
-        while (headA != null && headB != null) {
-            if (headA.val == headB.val) {
-                headA = headA.next;
-                headB = headB.next;
-            }else {
-                break;
-            }
+        while (headB != null) {
+            len2++;
+            headB = headB.next;
         }
-        while (node != null && node.next != null && node != headA) {
-            ListNode next = node.next;
-            node.next = next.next;
-            next.next = headA;
-            headA = next;
-            node = first;
+        int len = Math.abs(len1 - len2);
+        if (len == 0) {
+
+        }else {
+
         }
-        return node;
+        return null;
     }
 
     public static void main(String[] args) {

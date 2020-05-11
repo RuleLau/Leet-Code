@@ -2,3 +2,8 @@
 /workspace.xml
 .idea/
 *.iml
+# Datasource local storage ignored files
+/dataSources/
+
+# Datasource local storage ignored files
+/dataSources.local.xml
