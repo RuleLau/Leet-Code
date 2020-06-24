@@ -27,6 +27,7 @@ public class SplitListToParts {
                 nums.add(i);
             }
         }
+        int a;
         return null;
     }
 }
