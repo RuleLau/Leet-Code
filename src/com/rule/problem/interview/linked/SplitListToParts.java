@@ -1,33 +1,52 @@
 package com.rule.problem.interview.linked;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 725. 分隔链表
  */
 public class SplitListToParts {
 
     /**
-     * 等差公式：an = a1 + (n - 1)*d
+     *
      * @param root
      * @param k
      * @return
      */
-    public ListNode[] splitListToParts(ListNode root, int k) {
-        int len = 0;
+    public static ListNode[] splitListToParts(ListNode root, int k) {
+
+        ListNode[] res = new ListNode[k];
         ListNode head = root;
+        ListNode tail = root;
+        int total = 0;
         while (root != null) {
-            len++;
+            total++;
             root = root.next;
         }
-        List<Integer> nums = new ArrayList<>();
-        if (len >= k) {
-            for (int i = 0; i < k; i++) {
-                nums.add(i);
+        int div = total / k;
+        int remainder = total % k;
+       // System.out.println("div = " + div + "--- remainder = " + remainder);
+        for (int i = 0; i < k; i++) {
+            int num = remainder-- > 0 ? div + 1 : div;
+            ListNode last = tail;
+            while (num-- > 0 && tail != null) {
+                last = tail;
+                tail = tail.next;
+            }
+            res[i] = head;
+            head = tail;
+            if (last != null) {
+                last.next = null;
             }
         }
-        int a;
-        return null;
+
+        return res;
     }
+
+    public static void main(String[] args) {
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
+        l1.next.next.next = new ListNode(4);
+        splitListToParts(l1, 5);
+    }
+
 }
