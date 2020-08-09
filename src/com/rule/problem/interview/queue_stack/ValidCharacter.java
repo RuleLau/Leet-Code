@@ -10,32 +10,31 @@ public class ValidCharacter {
 
     public boolean isValid(String s) {
         char[] chars = s.toCharArray();
-        if (chars.length <= 1) {
+        if (chars.length % 2 != 0) {
             return false;
         }
         Deque<Character> deque = new ArrayDeque<>();
         for (char c : chars) {
-            deque.push(c);
-        }
-        while (!deque.isEmpty()) {
-            Character first = deque.pop();
-            Character second = deque.pop();
-            boolean v = valid(first, second);
-            if (!v) {
-                return false;
+            if (c == '(' || c == '[' || c == '{') {
+                deque.push(c);
+            }else {
+                if (deque.isEmpty()) {
+                    return false;
+                }else {
+                    char p = deque.pop();
+                    if (!(p == '(' && c == ')' || p == '[' && c == ']' || p == '{' && c == '}')) {
+                        return false;
+                    }
+                }
             }
         }
-        return true;
+        return deque.isEmpty();
     }
 
-    private boolean valid(Character first, Character second) {
-        if (first == ')' && second == '('
-                || first == '}' && second == '{'
-                || first == ']' && second == '[') {
-            return true;
-        }
-        return (first == ')' || first == ']' || first == '}')
-                && (second == ')' || second == ']' || second == '}');
+    private boolean valid(char first, char second) {
+        return first == '(' && second == ')'
+            || first == '[' && second == ']'
+            || first == '{' && second == '}';
     }
 
 }
