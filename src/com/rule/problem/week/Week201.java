@@ -48,7 +48,6 @@ public class Week201 {
      * 1546. 和为目标值的最大数目不重叠非空子数组数目
      */
     public int maxNonOverlapping(int[] nums, int target) {
-        // 对每一段总和都用set保存下来，判断之前是否有某段+target=当前段
         Set<Integer> set = new HashSet<>();
         int curSum = 0;
         int res = 0;
@@ -56,7 +55,6 @@ public class Week201 {
         for (int num : nums) {
             curSum += num;
             if (set.contains(curSum - target)) {
-                // 如果当前段和减去之前某一段和为target，则符合条件，即当前curSum=上次curSum+target
                 set.clear();
                 set.add(0);
                 curSum = 0;

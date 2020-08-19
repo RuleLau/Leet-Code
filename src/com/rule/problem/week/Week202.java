@@ -30,7 +30,6 @@ public class Week202 {
      * 5488. 使数组中所有元素相等的最小操作数
      */
     public int minOperations(int n) {
-        int an = 2 * n - 1;
         //1 3 5 7 9 11 13
         int mid = n / 2;
         if (n % 2 == 0) {
@@ -54,7 +53,7 @@ public class Week202 {
                 ans = mid;
                 lo = mid + 1;
             } else {
-                hi = mid-1;
+                hi = mid - 1;
             }
         }
         return ans;
@@ -82,21 +81,30 @@ public class Week202 {
         return getMinDay(n);
 
     }
+
     private Map<Integer, Integer> maps = new HashMap<>();
 
-    private int getMinDay(int n){
-        if(n == 1) return 1;
-        if(n == 2) return 2;
-        if(n == 3) return 2;
+    private int getMinDay(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        if (n == 2) {
+            return 2;
+        }
+        if (n == 3) {
+            return 2;
+        }
         Integer re = maps.get(n);
         // 是否之前计算过
-        if(re != null) return re;
+        if (re != null) {
+            return re;
+        }
 
-        int m2 = getMinDay(n/2)+n%2;
-        int m3 = getMinDay(n/3)+n%3;
-        int result = Math.min(m2, m3)+1;
+        int m2 = getMinDay(n / 2) + n % 2;
+        int m3 = getMinDay(n / 3) + n % 3;
+        int result = Math.min(m2, m3) + 1;
         // 存储结果
-        maps.put(n,result);
+        maps.put(n, result);
         return result;
     }
 
