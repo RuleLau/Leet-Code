@@ -26,26 +26,35 @@ public class CountOfAtoms {
                 }
                 num = s.length() == 0 ? num : Integer.parseInt(s.toString());
                 s.setLength(0);
-                while (!stack.isEmpty() && !stack.peek().equals("(")) {
+                while (!stack.isEmpty() && !"(".equals(stack.peek())) {
                     String pop = stack.pop();
                     tree.put(pop, tree.getOrDefault(pop, 1) * num);
                 }
-                if (stack.peek().equals("(")) {
+                if ("(".equals(stack.peek())) {
                     stack.pop();
                 }
             } else {
                 String a = String.valueOf(c);
-                if (checkxx(c) && !stack.isEmpty()) {
+                if (checkxx(c)) {
                     String pop = stack.pop();
                     a = pop + c;
+                    stack.push(a);
+                }else if (checkNumber(c)) {
+                    s.setLength(0);
+                    while (i != len && checkNumber(formula.charAt(i))) {
+                        s.append(formula.charAt(i++));
+                    }
+                    i--;
+                    String word = stack.peek();
+                    tree.put(word, tree.getOrDefault(word, 0) + Integer.parseInt(s.toString()));
+                    s.setLength(0);
+                }else {
+                    stack.push(a);
                 }
-                stack.push(a);
             }
         }
 
-        while (!stack.isEmpty()) {
-            tree.put(stack.peek(), tree.getOrDefault(stack.pop(), 1));
-        }
+
         tree.forEach((k,v) -> {
             s.append(k).append(v == 1 ? "" : v);
         });
