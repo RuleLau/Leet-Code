@@ -2,10 +2,7 @@ package com.rule.problem.interview.recursion;
 
 import com.sun.xml.internal.ws.util.StringUtils;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 726. 原子的数量
@@ -13,7 +10,7 @@ import java.util.Map;
 public class CountOfAtoms {
 
     public static String countOfAtoms(String formula) {
-        Map<String, Integer> tree = new HashMap<>();
+        Map<String, Integer> tree = new TreeMap<>();
         Deque<String> stack = new ArrayDeque<>();
         int len = formula.length();
         StringBuilder s = new StringBuilder();
@@ -21,17 +18,27 @@ public class CountOfAtoms {
             char c = formula.charAt(i);
             if (c == ')') {
                 int num = 1;
-                while (++i != len && checkNumber(formula.charAt(i))) {
-                    s.append(formula.charAt(i));
+                s.setLength(0);
+                while (i != len - 1 && checkNumber(formula.charAt(i + 1))) {
+                    s.append(formula.charAt(++i));
                 }
                 num = s.length() == 0 ? num : Integer.parseInt(s.toString());
-                s.setLength(0);
+                Deque<String> temp = new ArrayDeque<>();
                 while (!stack.isEmpty() && !"(".equals(stack.peek())) {
                     String pop = stack.pop();
-                    tree.put(pop, tree.getOrDefault(pop, 1) * num);
+                    if (checkNumber(pop.charAt(0))) {
+                        temp.push(String.valueOf(Integer.parseInt(pop) * num));
+                        temp.push(stack.pop());
+                    } else {
+                        temp.push(num + "");
+                        temp.push(pop);
+                    }
                 }
                 if ("(".equals(stack.peek())) {
                     stack.pop();
+                }
+                while (!temp.isEmpty()) {
+                    stack.push(temp.pop());
                 }
             } else {
                 String a = String.valueOf(c);
@@ -39,23 +46,28 @@ public class CountOfAtoms {
                     String pop = stack.pop();
                     a = pop + c;
                     stack.push(a);
-                }else if (checkNumber(c)) {
+                } else if (checkNumber(c)) {
                     s.setLength(0);
                     while (i != len && checkNumber(formula.charAt(i))) {
                         s.append(formula.charAt(i++));
                     }
                     i--;
-                    String word = stack.peek();
-                    tree.put(word, tree.getOrDefault(word, 0) + Integer.parseInt(s.toString()));
-                    s.setLength(0);
-                }else {
+                    stack.push(s.toString());
+                } else {
                     stack.push(a);
                 }
             }
         }
-
-
-        tree.forEach((k,v) -> {
+        while (!stack.isEmpty()) {
+            String c = stack.pop();
+            if (checkNumber(c.charAt(0))) {
+                tree.put(stack.peek(), tree.getOrDefault(stack.pop(), 0) + Integer.parseInt(c));
+            }else {
+                tree.put(c, tree.getOrDefault(c, 0) + 1);
+            }
+        }
+        s.setLength(0);
+        tree.forEach((k, v) -> {
             s.append(k).append(v == 1 ? "" : v);
         });
         return s.toString();
@@ -70,7 +82,7 @@ public class CountOfAtoms {
     }
 
     public static void main(String[] args) {
-       System.out.println(countOfAtoms("K4(ON(SO3)2)2"));
+        System.out.println(countOfAtoms("H11He49NO35B7N46Li20"));
     }
 }
 
