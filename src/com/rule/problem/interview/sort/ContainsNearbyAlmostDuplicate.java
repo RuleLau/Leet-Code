@@ -1,39 +1,36 @@
 package com.rule.problem.interview.sort;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.TreeSet;
 
+/**
+ * 220. 存在重复元素 III
+ */
 public class ContainsNearbyAlmostDuplicate {
 
     public static boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            List<Integer> list = map.getOrDefault(nums[i], new ArrayList<>(nums.length));
-            list.add(i);
-            map.put(nums[i], list);
-        }
-        List<Integer> temp;
-        for (int i = 0; i < nums.length; i++) {
-            int n = nums[i];
-            int high = Math.max(n, Math.abs(n - k));
-            while (n <= high) {
-                if (map.containsKey(high)) {
-                    temp = map.get(high);
-                    for (int j = 0; j < temp.size(); j++) {
-                        if (i != temp.get(j) && Math.abs(i - temp.get(j)) <= t) {
-                            return true;
-                        }
-                    }
-                }
-                high--;
+        int len = nums.length;
+        int low = 0;
+        TreeSet<Long> set = new TreeSet<>();
+        while (low < len) {
+            long cur = nums[low];
+            Long s = set.ceiling(cur);
+            if (s != null && Math.abs(cur - s) <= t) {
+                return true;
             }
+            Long ceiling = set.floor(cur);
+            if (ceiling != null && Math.abs(cur - ceiling) <= t) {
+                return true;
+            }
+            set.add(cur);
+            if (set.size() > k) {
+                set.remove((long) nums[low - k]);
+            }
+            low++;
         }
         return false;
     }
 
     public static void main(String[] args) {
-        System.out.println(containsNearbyAlmostDuplicate(new int[]{1, 2, 3, 1}, 3, 0));
+        System.out.println(containsNearbyAlmostDuplicate(new int[]{7, 1, 3}, 2, 3));
     }
 }
