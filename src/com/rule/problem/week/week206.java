@@ -1,5 +1,9 @@
 package com.rule.problem.week;
 
+import com.sun.deploy.util.ArrayUtil;
+
+import java.util.*;
+
 public class week206 {
 
     public int numSpecial(int[][] mat) {
@@ -61,30 +65,56 @@ public class week206 {
 
     public int minCostConnectPoints(int[][] points) {
         int len = points.length;
-        int[] temp = new int[len];
+       // int[] temp = new int[len];
         int sum = 0;
-        temp[0] = 1;
-        for (int i = 1; temp[i] == 0; i++) {
+        //temp[0] = 1;
+        int[][] temp = new int[len][len];
+        for (int i = 0; i < len; i++) {
             int x = points[i][0];
             int y = points[i][1];
-
+            for (int j = i + 1; j < len; j++) {
+                int x1 = points[j][0];
+                int y1 = points[j][1];
+                int s = Math.abs(x1 - x) + Math.abs(y1 - y);
+                temp[i][j] = s;
+                temp[j][i] = s;
+            }
         }
-        for (int i = 1; i < len && temp[i] == 0; i++) {
-
-
-
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 0);
+        final int[] min = {Integer.MAX_VALUE};
+        final int[] index = {0};
+        for (int i = 1; i < len; i++) {
+            sum += findMin(temp, map, min, index);
         }
-
-
         return sum;
     }
 
+
+    private int findMin(int[][] points, Map<Integer, Integer> map, int[] min, int[] index) {
+        map.forEach((k,v) -> {
+            int[] point = points[k];
+            for (int i = 0; i < point.length; i++) {
+                if (!map.containsKey(i) && min[0] > points[k][i]) {
+                    min[0] = points[k][i];
+                    index[0] = i;
+                }
+            }
+        });
+        map.put(index[0], 0);
+        return min[0];
+    }
+
+
     public static void main(String[] args) {
         week206 w = new week206();
-        System.out.println(w.unhappyFriends(4, new int[][]{
-                {1, 3, 2}, {2, 3, 0}, {1, 3, 0}, {0, 2, 1}
-        }, new int[][]{
-                {1, 3}, {0, 2}
+//        System.out.println(w.unhappyFriends(4, new int[][]{
+//                {1, 3, 2}, {2, 3, 0}, {1, 3, 0}, {0, 2, 1}
+//        }, new int[][]{
+//                {1, 3}, {0, 2}
+//        }));
+        System.out.println(w.minCostConnectPoints(new int[][]{
+                {0, 0}, {2, 2}, {3, 10}, {5, 2}, {7, 0}
         }));
     }
 
