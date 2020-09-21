@@ -7,7 +7,7 @@ package com.rule.problem.dp;
  **/
 public class MaxProductPath {
 
-    public int maxProductPath(int[][] grid) {
+    public static int maxProductPath(int[][] grid) {
         int row = grid.length;
         int col = grid[0].length;
         long[][] maxDp = new long[row][col];
@@ -26,15 +26,24 @@ public class MaxProductPath {
         }
         for (int i = 1; i < row; i++) {
             for (int j = 1; j < col; j++) {
-                maxDp[i][j] = Math.max(minDp[i][j - 1] * grid[i][j],
-                        Math.max(minDp[i - 1][j] * grid[i][j], Math.max(maxDp[i - 1][j] * grid[i][j], maxDp[i][j - 1] * grid[i][j]))) % 1000000007;
-                minDp[i][j] = Math.min(minDp[i][j - 1] * grid[i][j],
-                        Math.min(minDp[i - 1][j] * grid[i][j], Math.min(maxDp[i - 1][j] * grid[i][j], maxDp[i][j - 1] * grid[i][j]))) % 1000000007;
+                if (grid[i][j] > 0) {
+                    maxDp[i][j] = Math.max(maxDp[i - 1][j] * grid[i][j], maxDp[i][j - 1] * grid[i][j]);
+                    minDp[i][j] = Math.min(minDp[i][j - 1] * grid[i][j], minDp[i - 1][j] * grid[i][j]);
+                } else if (grid[i][j] < 0) {
+                    maxDp[i][j] = Math.max(minDp[i - 1][j] * grid[i][j], minDp[i][j - 1] * grid[i][j]);
+                    minDp[i][j] = Math.min(maxDp[i][j - 1] * grid[i][j], maxDp[i - 1][j] * grid[i][j]);
+                }
             }
         }
-        if (maxDp[row - 1][col - 1] < 0) {
-            return -1;
-        }
-        return (int) (maxDp[row - 1][col - 1] % 1000000007);
+        long mod = (long) (1e9 + 7);
+        return (int) (maxDp[row - 1][col - 1] < 0 ? -1 : maxDp[row - 1][col - 1] % mod);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(maxProductPath(new int[][]{
+                {1, 4, 4, 0},
+                {-2, 0, 0, 1},
+                {1, -1, 1, 1}
+        }));
     }
 }
