@@ -44,7 +44,7 @@ public class DpMedium {
                     dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]];
                 }
             }
-        }
+        } 
         return dp[len][sum];
     }
 
