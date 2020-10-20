@@ -37,10 +37,10 @@ public class WeekDouble37 {
                 if (maxSum == map.get(i)) {
                     if (towers[index][0] == towers[i][0]) {
                         index = towers[index][1] < towers[i][1] ? index : i;
-                    }else {
+                    } else {
                         index = towers[index][0] < towers[i][0] ? index : i;
                     }
-                }else {
+                } else {
                     maxSum = map.get(i);
                     index = i;
                 }
@@ -53,13 +53,30 @@ public class WeekDouble37 {
     /**
      * 1621. 大小为 K 的不重叠线段的数目
      */
+    static final int MOD = 1_000_000_007;
+
     public int numberOfSets(int n, int k) {
-        int v = (int) (10e9 + 7);
-        long ans = 0;
+        int[][] dpT = new int[n + 1][k + 1];
+        int[][] dp = new int[n + 1][k + 1];
 
-        return (int) (ans % v);
+        for (int i = 2; i < n + 1; i++) {
+            dp[i][1] = i * (i - 1) / 2;
+            dpT[i][1] = i - 1;
+        }
+
+        for (int j = 2; j <= k; j++) {
+            dpT[j + 1][j] = 1;
+            dp[j + 1][j] = 1;
+            for (int i = j + 2; i <= n; i++) {
+                dpT[i][j] = dpT[i - 1][j] + dp[i - 1][j - 1];
+                dpT[i][j] %= MOD;
+                dp[i][j] = dp[i - 1][j] + dpT[i][j];
+                dp[i][j] %= MOD;
+            }
+        }
+
+        return dp[n][k];
     }
-
 
     public double getDistance(int[] a, int[] b) {
         return (b[1] - a[1]) * (b[1] - a[1]) + (b[0] - a[0]) * (b[0] - a[0]);
