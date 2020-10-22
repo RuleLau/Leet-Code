@@ -18,7 +18,7 @@ public class Week211 {
             if (integer != null) {
                 int a = i - integer;
                 ans = Math.max(ans, a - 1);
-            }else {
+            } else {
                 map.put(chars[i], i);
             }
         }
@@ -27,12 +27,20 @@ public class Week211 {
 
     public String findLexSmallestString(String s, int a, int b) {
         TreeSet<String> set = new TreeSet<>();
-        add(s, a, b);
+        while (true) {
+            String temp = move(s, b);
+            s = add(temp, a);
+            if (set.contains(s)) {
+                break;
+            }
+            set.add(s);
+        }
         return set.iterator().next();
     }
 
 
-    private String move(String s, int b, Set<String> set) {
+    private String move(String s, int b) {
+        Set<String> set = new TreeSet<>();
         int len = s.length();
         while (!set.contains(s)) {
             String temp = s.substring(b, len) + s.substring(0, b);
@@ -42,28 +50,30 @@ public class Week211 {
         return set.iterator().next();
     }
 
-    private void add(String s, int a, int b) {
-        Set<String> set1 = new TreeSet<>();
-        Set<String> set2 = new TreeSet<>();
+    private String add(String s, int a) {
+        Set<String> set = new TreeSet<>();
         StringBuilder temp = new StringBuilder();
-        while (!set2.contains(s) || !set1.contains(s)) {
+        while (true) {
             temp.delete(0, temp.length());
-            s = move(s, b, set1);
             char[] chars = s.toCharArray();
             for (int i = 0; i < chars.length; i++) {
                 if (i % 2 == 1) {
                     temp.append((Character.getNumericValue(chars[i]) + a) % 10);
-                }else {
+                } else {
                     temp.append(chars[i]);
                 }
             }
             s = temp.toString();
-            set2.add(s);
+            if (set.contains(s)) {
+                break;
+            }
+            set.add(s);
         }
+        return set.iterator().next();
     }
 
     public static void main(String[] args) {
         Week211 w = new Week211();
-        System.out.println(w.findLexSmallestString("74", 5, 1));
+        System.out.println(w.findLexSmallestString("5525", 9, 2));
     }
 }
