@@ -44,13 +44,28 @@ public class Hot100 {
         if (heights == null || heights.length == 0) {
             return 0;
         }
-        int left = 0;
-        int right = heights.length - 1;
-       return 0;
+        int len = heights.length;
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            int min = heights[i];
+            int left = i;
+            int right = i;
+            while (left > 0 && heights[left - 1] >= min) {
+                min = Math.min(min, heights[left]);
+                left--;
+            }
+            while (right < len - 1 && heights[right + 1] >= min) {
+                min = Math.min(min, heights[right]);
+                right++;
+            }
+            int width = right - left + 1;
+            sum = Math.max(sum, width * min);
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
         Hot100 hot100 = new Hot100();
-        System.out.println(hot100.largestRectangleArea(new int[]{5,5,1,7,1,1,5,2,7,6}));
+        System.out.println(hot100.largestRectangleArea(new int[]{5, 5, 1, 7, 1, 1, 5, 2, 7, 6}));
     }
 }
