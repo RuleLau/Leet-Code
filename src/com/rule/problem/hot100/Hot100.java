@@ -40,6 +40,15 @@ public class Hot100 {
         dfs(root.right, ans);
     }
 
+    // 层序遍历
+    public void bfs(TreeNode root, List<Integer> ans) {
+        Deque<TreeNode> deque = new ArrayDeque<>();
+
+
+
+
+    }
+
     public int largestRectangleArea(int[] heights) {
         if (heights == null || heights.length == 0) {
             return 0;
