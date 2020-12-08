@@ -41,12 +41,26 @@ public class Hot100 {
     }
 
     // 层序遍历
-    public void bfs(TreeNode root, List<Integer> ans) {
+    public void bfs(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
-
-
-
-
+        if (root == null) {
+            return;
+        }
+        deque.add(root);
+        while (!deque.isEmpty()) {
+            TreeNode poll = deque.poll();
+            list.add(poll.val);
+            ans.add(list);
+            list = new ArrayList<>();
+            if (poll.left != null) {
+                deque.add(poll.left);
+            }
+            if (poll.right != null) {
+                deque.add(poll.right);
+            }
+        }
     }
 
     public int largestRectangleArea(int[] heights) {
