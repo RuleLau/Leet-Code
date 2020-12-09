@@ -1,6 +1,7 @@
 package com.rule.problem.hot100;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hot100 {
     class TreeNode {
@@ -41,26 +42,29 @@ public class Hot100 {
     }
 
     // 层序遍历
-    public void bfs(TreeNode root) {
+    public  List<List<Integer>> bfs(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> list = new ArrayList<>();
         Deque<TreeNode> deque = new ArrayDeque<>();
         if (root == null) {
-            return;
+            return ans;
         }
         deque.add(root);
         while (!deque.isEmpty()) {
-            TreeNode poll = deque.poll();
-            list.add(poll.val);
+            List<Integer> list = new ArrayList<>();
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = deque.poll();
+                list.add(poll.val);
+                if (poll.left != null) {
+                    deque.add(poll.left);
+                }
+                if (poll.right != null) {
+                    deque.add(poll.right);
+                }
+            }
             ans.add(list);
-            list = new ArrayList<>();
-            if (poll.left != null) {
-                deque.add(poll.left);
-            }
-            if (poll.right != null) {
-                deque.add(poll.right);
-            }
         }
+        return ans;
     }
 
     public int largestRectangleArea(int[] heights) {
