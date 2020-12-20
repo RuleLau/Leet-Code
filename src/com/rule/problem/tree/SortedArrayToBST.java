@@ -11,11 +11,11 @@ public class SortedArrayToBST {
 
     private TreeNode dfs(int[] nums, int left, int right) {
         int mid = left + (right - left) / 2;
-        if (left < 0 || right > nums.length) {
+        if (left > right) {
             return null;
         }
         TreeNode root = new TreeNode(nums[mid]);
-        root.left = dfs(nums, 0, mid - 1);
+        root.left = dfs(nums, left, mid - 1);
         root.right = dfs(nums, mid + 1, right);
         return root;
     }
