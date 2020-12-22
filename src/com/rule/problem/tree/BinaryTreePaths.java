@@ -1,35 +1,30 @@
 package com.rule.problem.tree;
 
+import com.sun.deploy.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description:
- * @author: rule
- * @date: 2020-12-22 19:59
- **/
+ * 257 二叉树所有路径
+ */
 public class BinaryTreePaths {
 
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> res = new ArrayList<>();
-        dfs(res, root);
+        dfs(res, "", root);
         return res;
     }
 
-    private String dfs(List<String> res, TreeNode root) {
-        StringBuilder str = new StringBuilder();
+    private void dfs(List<String> res, String path, TreeNode root) {
         if (root == null) {
-            return str.toString();
+            return;
         }
-        str.append(root.val);
-       if (root.left == null && root.right == null) {
-           if (!"".equals(str.toString())) {
-               res.add(str.toString());
-           }
-       }
-       str.append(dfs(res, root.left) + "->");
-       str.append(dfs(res, root.right) + "->");
-       return str.toString();
+        if (root.left == null && root.right == null) {
+            res.add(path + root.val);
+        }
+        dfs(res, path + root.val + "->", root.left);
+        dfs(res, path + root.val + "->", root.right);
     }
 
 }
