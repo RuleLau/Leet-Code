@@ -1,4 +1,6 @@
-package com.rule.problem.tree;
+package com.rule.problem.tree.easy;
+
+import com.rule.problem.tree.TreeNode;
 
 /**
  * 226. 翻转二叉树

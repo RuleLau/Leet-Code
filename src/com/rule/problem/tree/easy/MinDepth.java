@@ -1,4 +1,6 @@
-package com.rule.problem.tree;
+package com.rule.problem.tree.easy;
+
+import com.rule.problem.tree.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

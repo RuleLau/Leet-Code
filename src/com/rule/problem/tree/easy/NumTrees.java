@@ -1,4 +1,4 @@
-package com.rule.problem.tree;
+package com.rule.problem.tree.easy;
 
 public class NumTrees {
 
