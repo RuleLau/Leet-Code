@@ -8,19 +8,32 @@ import com.rule.problem.tree.TreeNode;
 public class SumOfLeftLeaves {
 
     public int sumOfLeftLeaves(TreeNode root) {
-        return dfs(root, 0);
-    }
-
-    private int dfs(TreeNode root, int sum) {
         if (root == null) {
-            return sum;
+            return 0;
         }
-        if (root.left == null && root.right == null) {
-            return sum + root.val;
-        }
-        sum += dfs(root.left, 0);
-        sum += dfs(root.right, 0);
-        return sum;
+        return dfs(root);
     }
 
+    private int dfs(TreeNode root) {
+        int ans = 0;
+        if (root.left != null) {
+            ans += (root.left.left == null && root.left.right == null) ? root.left.val : dfs(root.left);
+        }
+        if (root.right != null && !(root.right.left == null && root.right.right == null) ) {
+            ans += dfs(root.right);
+        }
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(3);
+        root.left = new TreeNode(9);
+        root.right = new TreeNode(20);
+        root.left.left = new TreeNode(1);
+        root.left.right = new TreeNode(2);
+        root.right.left = new TreeNode(15);
+        root.right.right = new TreeNode(7);
+        SumOfLeftLeaves s = new SumOfLeftLeaves();
+        s.sumOfLeftLeaves(root);
+    }
 }
