@@ -1,5 +1,7 @@
 package com.rule.problem.week;
 
+import java.util.*;
+
 /**
  *
  * @description 1318. Minimum Flips to Make a OR b Equal to c
@@ -79,8 +81,26 @@ public class MinimumFlipEqual {
     }
 
     public static void main(String[] args) {
-        System.out.println(minFlips(10, 9, 1));
-        System.out.println(minFlips(5, 2, 8));
-        System.out.println(minFlips(1, 2, 3));
+//        System.out.println(minFlips(10, 9, 1));
+//        System.out.println(minFlips(5, 2, 8));
+//        System.out.println(minFlips(1, 2, 3));
+//        int[][] rectangles = new int[][]{{5,8},{3,9},{5,12},{16,5}};
+//        int row = rectangles.length;
+//        int ans = 1;
+//        List<Integer> set = new ArrayList<>();
+//        for (int i = 0; i < row; i++) {
+//            set.add(Math.min(rectangles[i][0], rectangles[i][1]));
+//        }
+//        Integer[] nums = set.toArray(new Integer[0]);
+//        System.out.println(Arrays.toString(nums));
+//
+//        for (int i = nums.length - 2; i >= 0; i--) {
+//            if (nums[i].equals(nums[nums.length - 1])) {
+//                ans++;
+//            }
+//        }
+//        System.out.println(ans);
+        System.out.println(Runtime.getRuntime().maxMemory());
+
     }
 }
