@@ -5,6 +5,7 @@ import java.util.*;
 public class ThreeSum {
 
     /**
+     * [-1,0,1,2,-1,-4]
      * 015. 三数之和
      */
     public static List<List<Integer>> threeSum(int[] nums) {

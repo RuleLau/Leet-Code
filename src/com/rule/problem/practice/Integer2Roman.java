@@ -1,6 +1,5 @@
 package com.rule.problem.practice;
 
-import com.sun.org.apache.regexp.internal.RE;
 
 /**
  * @description: 12. Integer to Roman

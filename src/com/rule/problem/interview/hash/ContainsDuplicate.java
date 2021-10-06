@@ -1,6 +1,5 @@
 package com.rule.problem.interview.hash;
 
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
