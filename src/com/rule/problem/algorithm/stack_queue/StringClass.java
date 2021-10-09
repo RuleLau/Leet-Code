@@ -51,18 +51,59 @@ public class StringClass {
     public static void minStrII(String s) {
 
     }
+    // ABABC
+    // ABABC
+    public static int[] getNext(char[] chars) {
+        int len = chars.length;
+        int[] next = new int[len];
+        next[0] = -1;
+        int j = -1;
+        int i = 0;
+        while (i < len - 1) {
+            if (j == -1 || chars[i] == chars[j]) {
+                next[++i] = ++j;
+            } else {
+                j = next[j];
+            }
+        }
+        return next;
+    }
 
     /**
      * P3375
-     * @param s1
-     * @param s2
+     *
+     * @param ts
+     * @param ps
      */
-    public static void kmp(String s1, String s2) {
+    public static void kmp(String ts, String ps) {
+        char[] t = ts.toCharArray();
+        char[] p = ps.toCharArray();
+        int i = 0; // 主串的位置
+        int j = 0; // 模式串的位置
+        int[] next = getNext(p);
+
+        while (i < t.length && j < p.length) {
+            if (j == -1 || t[i] == p[j]) { // 当j为-1时，要移动的是i，当然j也要归
+                i++;
+                j++;
+            } else {
+                // i不需要回溯了
+                // i = i - j + 1;
+                j = next[j]; // j回到指定位置
+            }
+        }
+
+        if (j == p.length) {
+            System.out.println(i - j);
+        } else {
+            System.out.println(-1);
+        }
 
     }
 
     /**
      * UVA401
+     *
      * @param str
      */
     public static void huiwen(String str) {
@@ -87,6 +128,7 @@ public class StringClass {
 
     /**
      * UVA642
+     *
      * @param strs
      * @param temps
      */
@@ -111,7 +153,7 @@ public class StringClass {
             List<String> strings = map.get(new String(chars));
             if (strings == null) {
                 System.out.println("NOT A VALID WORD");
-            }else {
+            } else {
                 for (String string : strings) {
                     System.out.println(string);
                 }
@@ -151,6 +193,8 @@ public class StringClass {
         temps.add("oresuc");
 
         wordAmalgamation(strs, temps);*/
+
+        kmp("ABABCDEABABCD", "ABABCD");
     }
 
 }
