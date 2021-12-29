@@ -92,6 +92,25 @@ public class Simple {
         return ans;
     }
 
+
+    /**
+     * 1446. 连续字符
+     */
+    public int maxPower(String s) {
+        int ans = 1 ;
+        int sum = 1;
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < chars.length - 1; i++) {
+            if (chars[i] == chars[i + 1]) {
+                sum++;
+            } else {
+                ans = Math.max(ans, sum);
+                sum = 1;
+            }
+        }
+        return Math.max(ans, sum);
+    }
+
     public static void main(String[] args) {
         merge(new int[]{1, 2, 3, 0, 0, 0}, 3, new int[]{2, 5, 6}, 3);
 
