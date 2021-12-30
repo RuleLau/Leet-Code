@@ -60,12 +60,15 @@ public class Medium {
         return max;
     }
 
+    /**
+     * 11. 盛最多水的容器
+     */
     public int maxArea(int[] height) {
         int a = 0;
         int b = height.length - 1;
         int sum = 0;
-        while ( a < b) {
-            sum = Math.max(sum,(b -a ) * Math.min(height[a], height[b]));
+        while (a < b) {
+            sum = Math.max(sum, (b - a) * Math.min(height[a], height[b]));
             if (height[a] > height[b]) {
                 b--;
             } else {
@@ -75,10 +78,41 @@ public class Medium {
         return sum;
     }
 
+    /**
+     * 45. 跳跃游戏 II
+     */
+    public int jump(int[] nums) {
+        int ans = 0;
+        int len = nums.length;
+        if (len == 1) {
+            return 0;
+        }
+        for (int i = 0; i < len - 1; ) {
+            int pi = i + nums[i];
+            if (pi >= len - 1) {
+                ans++;
+                return ans;
+            }
+            int pos = -1;
+            for (int j = i + 1; j < len && j <= i + nums[i]; j++) {
+                if (pos <= nums[j]) {
+                    pos = nums[j];
+                    pi = j;
+                }
+            }
+            i = pi;
+            ans++;
+            if (pi >= len - 1) {
+                return ans;
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         Medium medium = new Medium();
-        medium.lengthOfLongestSubstring("sxhkbbcdfxnmqkat");
-
+//        medium.lengthOfLongestSubstring("sxhkbbcdfxnmqkat");
+        System.out.println(medium.jump(new int[]{4,1,1,3,1,1,1}));
     }
 
 }
