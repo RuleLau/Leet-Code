@@ -109,10 +109,54 @@ public class Medium {
         return ans;
     }
 
+    /**
+     * 413. 等差数列划分
+     */
+    public static int numberOfArithmeticSlices(int[] nums) {
+        int len = nums.length;
+        int ans = 0;
+        int l = 0;
+        while (l < len - 2) {
+            int a = nums[l + 1] - nums[l];
+            int r = l + 2;
+            while (r < len && nums[r] - nums[r - 1] == a) {
+                ans++;
+                r++;
+            }
+            l++;
+        }
+        return ans;
+    }
+
+    /**
+     * 424. 替换后的最长重复字符
+     */
+    public int characterReplacement(String s, int k) {
+        int l = 0;
+        int len = s.length();
+        if (len <= k) {
+            return len;
+        }
+        int[] map = new int[26];
+        char[] chars = s.toCharArray();
+        int max = 0;
+        for (int i = 0; i < len; i++) {
+            int idx = chars[i] - 'A';
+            map[idx]++;
+            max = Math.max(map[idx], max);
+            if (i - l + 1 > max + k) {
+                map[chars[l] - 'A']--;
+                l++;
+            }
+        }
+        return len - l;
+    }
+
     public static void main(String[] args) {
         Medium medium = new Medium();
 //        medium.lengthOfLongestSubstring("sxhkbbcdfxnmqkat");
-        System.out.println(medium.jump(new int[]{4,1,1,3,1,1,1}));
+//        System.out.println(medium.jump(new int[]{4, 1, 1, 3, 1, 1, 1}));
+        numberOfArithmeticSlices(new int[]{1,2,2,3,4});
     }
 
 }
