@@ -97,7 +97,7 @@ public class Simple {
      * 1446. 连续字符
      */
     public int maxPower(String s) {
-        int ans = 1 ;
+        int ans = 1;
         int sum = 1;
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length - 1; i++) {
@@ -109,6 +109,26 @@ public class Simple {
             }
         }
         return Math.max(ans, sum);
+    }
+
+    public int minSwaps(int[] nums) {
+        int ans = 0;
+        int n = nums.length;
+        int[] temp = new int[n];
+        int right = n - 1;
+        while (right >= 0 && nums[right] == 1) {
+            right--;
+        }
+        for (int i = 0; i < n; i++) {
+            right++;
+            if (right == n) {
+                right = 0;
+            }
+            temp[i] = nums[right];
+        }
+        int[] sum = new int[n];
+
+        return ans;
     }
 
     public static void main(String[] args) {
